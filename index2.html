@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ertesítés</title>
+</head>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="file:///D|/programok/xampp/htdocs/1_Oldalak/Jo_tudni/push.js/push.min.js"></script>
+<script src="file:///D|/programok/xampp/htdocs/1_Oldalak/Jo_tudni/push.js/serviceWorker.min.js"></script>
+
+<body>
+	
+	<button>Notify me!</button>
+
+	<script>
+		window.addEventListener('load', () => {
+			const button = document.querySelector('button');
+
+			if (window.self !== window.top) {
+				// Ensure that if our document is in a frame, we get the user
+				// to first open it in its own tab or window. Otherwise, it
+				// won't be able to request permission to send notifications.
+				button.textContent = "View live result of the example code above";
+				button.addEventListener('click', () => window.open(location.href));
+				return;
+			}
+		
+
+			button.addEventListener('click', () => {
+				if (Notification?.permission === "granted") {
+					Push.create("Szevasz!", {
+						body: "Mi újság?",
+						icon: 'https://previews.123rf.com/images/coolvectorstock/coolvectorstock1808/coolvectorstock180802556/106911764-blood-sample-vector-icon-isolated-on-transparent-background-blood-sample-logo-concept.jpg',
+						timeout: 4000,
+						onClick: function () {
+							window.focus();
+							this.close();
+						}
+					});
+				}
+				else if (Notification && Notification.permission !== "denied") {
+				  // If the user hasn't told if they want to be notified or not
+				  // Note: because of Chrome, we are not sure the permission property
+				  // is set, therefore it's unsafe to check for the "default" value.
+					Notification.requestPermission((status) => {
+						// If the user said okay
+						if (status === "granted") {
+							Push.create("Szevasz!", {
+								body: "Mi újság?",
+								icon: 'https://previews.123rf.com/images/coolvectorstock/coolvectorstock1808/coolvectorstock180802556/106911764-blood-sample-vector-icon-isolated-on-transparent-background-blood-sample-logo-concept.jpg',
+								timeout: 4000,
+								onClick: function () {
+									window.focus();
+									this.close();
+								}
+							});
+						}
+						else {
+							// Otherwise, we can fallback to a regular modal alert
+							alert("Csá!");
+						}
+					});
+				  }
+			});
+		});
+
+	</script>
+	
+</body>
+	
+</html>

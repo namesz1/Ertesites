@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ertesítés</title>
+</head>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="push.min.js"></script>
+<script src="serviceWorker.min.js"></script>
+
+<body>
+	<a href="javascript:void(0)" onclick="start()">Start</a>
+	<a href="javascript:void(0)" onclick="clear()">Clear</a>
+	
+	<script>
+		function start(){
+			Push.create("Szevasz!", {
+				body: "Mi újság?",
+				icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/KTM-Logo.svg/1024px-KTM-Logo.svg.png',
+				timeout: 4000,
+				onClick: function () {
+					window.focus();
+					this.close();
+				}
+			});
+		}
+
+		function clear(){
+			Push.clear();
+		}
+	</script>
+</body>
+	
+</html>
