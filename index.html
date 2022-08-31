@@ -2,22 +2,226 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Ertesítés</title>
-</head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Próba</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="push.min.js"></script>
 <script src="serviceWorker.min.js"></script>
+</head>
+
+<style>
+	html, body{
+		width: 100%;
+		height: 100%;
+		padding: 0px;
+		margin: 0px;
+	}
+	#teljes{
+		height: 20px;
+		width: 20px;
+		border: none;
+		background: none;
+	}
+	.main{
+		width: 100%;
+		height: 100vh;
+		background: url("929704.jpg");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+	
+	.gep-doboz{
+		background-color:rgba(5,5,5,0.92);
+		height: 400px;
+		width: 270px;
+		border-radius: 20px;
+		text-align: center;
+		float: left;
+		margin-right: 5%;
+		margin-left: 5%;
+	}
+	.pc-kep{
+		margin-top: 50%;
+		height: 150px;
+	}
+	.pc-felirat{
+		font-family: "Times New Roman";
+		color: #fff;
+		font-size: 25px;
+	}
+	
+	.kivalaszt{
+		height: 400px;
+		width: 270px;
+		border-radius: 20px;
+		z-index: 2; 
+		position: absolute; 
+		background-color: rgba(9,9,9,0.80);
+		display: none;
+		transition: 0.6;
+	}
+	.kivalaszt-pipa{
+		margin-top: 50%;
+		height: 90px;
+	}
+	
+	.ido-doboz{
+		background-color:rgba(5,5,5,0.95);
+		height: 400px;
+		width: 270px;
+		border-radius: 20px;
+		text-align: center;
+		float: left;
+		margin-right: 5%;
+		margin-left: 5%;
+		z-index: 3;
+		display: none;
+	}
+	.gep-ido{
+		margin-top: 40%;
+		height: 150px;
+	}
+	.idotxt{
+		font-family: "Arial";
+		color: #fff;
+		font-size: 18px;
+	}
+	.ido{
+		font-family: "Arial";
+		color: #fff;
+		font-size: 25px;
+	}
+	
+	.elore{
+		width: 150px;
+		height: 150px;
+		border-radius: 100px;
+		background-color: #FF0004;
+		transition: 0.3s;
+		text-align: center;
+		float: right;
+		margin-right: 5%;
+		border: #535353 solid 5px;
+	}
+	.elore:hover{
+		background-color: #C60003;
+	}
+	.nyil{
+		color: #fff;
+		padding: 0px;
+		margin: 0px;
+		width: 100%;
+	}
+</style>	
 
 <body>
-	<a href="javascript:void(0)" onclick="start()">Start</a>
-	<a href="javascript:void(0)" onclick="clear()">Clear</a>
 	
-	<script>
-		function start(){
-			Push.create("Szevasz!", {
-				body: "Mi újság?",
-				icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/KTM-Logo.svg/1024px-KTM-Logo.svg.png',
+	<table class="main" border="0">
+		<tbody>
+			<tr>
+				<td>
+					<button id="teljes" onclick="openFullscreen();"></button>
+				</td>
+				<td>
+					<button id="igen" onClick="rendeles()" style="display: none;">Igen</button>
+				</td>
+				<td>
+					<button id="nem" onclick="rendeles_off()" style="display: none;">Nem</button>
+				</td>
+			</tr>
+			<tr>
+				<td style="height: 70vh;">
+					<table style="margin-left: auto; margin-right: auto; width: 52%">
+						<tbody>
+							<tr>
+								<td>
+									<div class="ido-doboz" id="gep-ido01">
+										<div class="gep-ido">
+											<p class="idotxt">Az 1-es gép foglalt.</p>
+											<p class="ido" id="ido1"></p>
+											<p class="idotxt">múlva lesz újra elérhető.</p>
+										</div>
+									</div>
+									<div class="gep-doboz" id="gep-doboz01" onClick="kivalaszt01()">
+										<div class="kivalaszt" id="kivalaszt1">
+											<img src="pipa.png" class="kivalaszt-pipa" alt=""/>
+										</div>
+										<div style="z-index: 1;">
+											<img src="pc.png" class="pc-kep" alt=""/>
+											<p class="pc-felirat">1-es Gép</p>
+										</div>
+									</div>
+									
+									<div class="ido-doboz" id="gep-ido02">
+										<div class="gep-ido">
+											<p class="idotxt">Az 2-es gép foglalt.</p>
+											<p class="ido" id="ido2"></p>
+											<p class="idotxt">múlva lesz újra elérhető.</p>
+										</div>
+									</div>
+									<div class="gep-doboz" id="gep-doboz02" onClick="kivalaszt02()">
+										<div class="kivalaszt" id="kivalaszt2">
+											<img src="pipa.png" class="kivalaszt-pipa" alt=""/>
+										</div>
+										<div style="z-index: 1;">
+											<img src="pc.png" class="pc-kep" alt=""/>
+											<p class="pc-felirat">2-es Gép</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<button class="elore" onClick="ertesites()"><img src="nyil.png" class="nyil" alt=""/></button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+</body>
+
+<script>
+	var kivalaszt1 = 0;
+	var kivalaszt2 = 0;
+	function kivalaszt01(){
+		if (kivalaszt1 == 0){
+			document.getElementById('kivalaszt1').style.display='table';
+			kivalaszt1++;
+		} else{
+			document.getElementById('kivalaszt1').style.display='none';
+			kivalaszt1 = 0;
+		}	
+	}
+	function kivalaszt02(){
+		if (kivalaszt2 == 0){
+			document.getElementById('kivalaszt2').style.display='table';
+			kivalaszt2++;
+		} else{
+			document.getElementById('kivalaszt2').style.display='none';
+			kivalaszt2 = 0;
+		}	
+	}
+	
+	var uzenet = '';
+	function ertesites(){
+		if (kivalaszt1==1){
+			uzenet = uzenet + '1;';
+		}
+		if (kivalaszt2==1){
+			uzenet = uzenet + '2;';
+		}
+		if (uzenet != ''){
+			document.getElementById('igen').style.display='table';
+			document.getElementById('nem').style.display='table';
+			
+			Push.create("Gep", {
+				body: uzenet,
+				icon: '',
 				timeout: 100000,
 				onClick: function () {
 					window.focus();
@@ -25,11 +229,132 @@
 				}
 			});
 		}
-
-		function clear(){
-			Push.clear();
-		}
-	</script>
-</body>
+	}
 	
+	
+	function rendeles(){
+		document.getElementById('igen').style.display='none';
+		document.getElementById('nem').style.display='none';
+		
+		var ido_most = (new Date()).getTime();
+		var ido_most = ido_most +18000;
+		
+		if(kivalaszt1 == 1){
+			document.getElementById('gep-doboz01').style.display='none';
+			document.getElementById('gep-ido01').style.display='table';
+			document.cookie = "gep1="+ido_most; 
+			kivalaszt1 = 0;
+			gep1();
+		}
+		
+		if(kivalaszt2 == 1){
+			document.getElementById('gep-doboz02').style.display='none';
+			document.getElementById('gep-ido02').style.display='table';
+			document.cookie = "gep2="+ido_most; 
+			kivalaszt2 = 0;
+			gep2();
+		}
+		uzenet = '';
+	}
+	
+	function rendeles_off(){
+		document.getElementById('igen').style.display='none';
+		document.getElementById('nem').style.display='none';
+		uzenet = '';
+	}
+</script>
+
+
+<script>
+	function gep1(){
+		var cookies = document.cookie
+			.split(';')
+			.map(cookie => cookie.split('='))
+			.reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
+
+		var kell = cookies.gep1
+		var countDownDate = kell;
+
+		// Set the date we're counting down to
+		//var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+		// Update the count down every 1 second
+		var x = setInterval(function() {
+
+		  // Get today's date and time
+		  var now = new Date().getTime();
+
+		  // Find the distance between now and the count down date
+		  var distance = countDownDate - now;
+
+		  // Time calculations for days, hours, minutes and seconds
+		  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		  // Display the result in the element with id="demo"
+		  document.getElementById("ido1").innerHTML = minutes + " perc " + seconds + " másodperc ";
+
+		  // If the count down is finished, write some text
+		  if (distance < 0) {
+				clearInterval(x);
+				document.getElementById('gep-ido01').style.display='none';
+			  	document.getElementById('kivalaszt1').style.display='none';
+				document.getElementById('gep-doboz01').style.display='table';
+		  }
+		}, 1000);
+	}
+	function gep2(){
+		var cookies = document.cookie
+			.split(';')
+			.map(cookie => cookie.split('='))
+			.reduce((accumulator, [key, value]) => ({ ...accumulator, [key.trim()]: decodeURIComponent(value) }), {});
+
+		var kell = cookies.gep2
+		var countDownDate = kell;
+
+		// Set the date we're counting down to
+		//var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+		// Update the count down every 1 second
+		var x = setInterval(function() {
+
+		  // Get today's date and time
+		  var now = new Date().getTime();
+
+		  // Find the distance between now and the count down date
+		  var distance = countDownDate - now;
+
+		  // Time calculations for days, hours, minutes and seconds
+		  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+		  // Display the result in the element with id="demo"
+		  document.getElementById("ido2").innerHTML = minutes + " perc " + seconds + " másodperc ";
+
+		  // If the count down is finished, write some text
+		  if (distance < 0) {
+				clearInterval(x);
+				document.getElementById('gep-ido02').style.display='none';
+			  	document.getElementById('kivalaszt2').style.display='none';
+				document.getElementById('gep-doboz02').style.display='table';
+		  }
+		}, 1000);
+	}
+</script>
+	
+<script>
+	var elem = document.documentElement;
+	function openFullscreen() {
+	  if (elem.requestFullscreen) {
+		elem.requestFullscreen();
+	  } else if (elem.webkitRequestFullscreen) { /* Safari */
+		elem.webkitRequestFullscreen();
+	  } else if (elem.msRequestFullscreen) { /* IE11 */
+		elem.msRequestFullscreen();
+	  }
+	}
+</script>
+
 </html>
