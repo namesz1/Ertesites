@@ -21,6 +21,13 @@
 		width: 20px;
 		border: none;
 		background: none;
+		font-size: 1px;
+	}
+	.visszajelzes{
+		background: none;
+		border: none;
+		font-size: 1px;
+		display: none;
 	}
 	.main{
 		width: 100%;
@@ -121,13 +128,13 @@
 		<tbody>
 			<tr>
 				<td>
-					<button id="teljes" onclick="openFullscreen();"></button>
+					<button id="teljes" onclick="openFullscreen();">Teljes</button>
 				</td>
 				<td>
-					<button id="igen" onClick="rendeles()" style="display: none;">Igen</button>
+					<button id="igen" class="visszajelzes" onClick="rendeles()">Igen</button>
 				</td>
 				<td>
-					<button id="nem" onclick="rendeles_off()" style="display: none;">Nem</button>
+					<button id="nem" class="visszajelzes" onclick="rendeles_off()">Nem</button>
 				</td>
 			</tr>
 			<tr>
