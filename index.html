@@ -196,39 +196,37 @@
 <script>
 	var kivalaszt1 = 0;
 	var kivalaszt2 = 0;
-	var osszesen = 0;
-	var ar = 900;
 	
 	function kivalaszt01(){
 		if (kivalaszt1 == 0){
 			document.getElementById('kivalaszt1').style.display='table';
 			kivalaszt1++;
-			osszesen = osszesen+ar;
 		} else{
 			document.getElementById('kivalaszt1').style.display='none';
 			kivalaszt1 = 0;
-			osszesen = osszesen-ar;
 		}	
 	}
 	function kivalaszt02(){
 		if (kivalaszt2 == 0){
 			document.getElementById('kivalaszt2').style.display='table';
 			kivalaszt2++;
-			osszesen = osszesen+ar;
 		} else{
 			document.getElementById('kivalaszt2').style.display='none';
 			kivalaszt2 = 0;
-			osszesen = osszesen-ar;
 		}	
 	}
 	
 	var uzenet = '';
+	var osszesen = 0;
+	var ar = 900;
 	function ertesites(){
 		if (kivalaszt1==1){
 			uzenet = uzenet + '1;';
+			osszesen = osszesen+ar;
 		}
 		if (kivalaszt2==1){
 			uzenet = uzenet + '2;';
+			osszesen = osszesen+ar;
 		}
 		if (uzenet != ''){
 			document.getElementById('igen').style.display='table';
